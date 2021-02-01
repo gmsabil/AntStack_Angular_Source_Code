@@ -1,0 +1,30 @@
+
+<div class="container">
+<input type="file" #fileReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
+<br>
+<br>
+
+<div class="form-group mb-4" *ngIf="records.length > 0">
+    <label class="form-control"><strong>Pin Code / Date : </strong></label>
+    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Filter">
+  </div> 
+<br>
+<br>
+
+<table class="borderBlack" *ngIf="(records | filter: searchText).length > 0">    
+  <thead>    
+    <tr >    
+      <th *ngFor="let headerObject of headerData">{{headerObject}}<i (click)="onSortClick($event)" class="my-icon fa fa-chevron-up"></i></th>         
+    </tr>    
+  </thead>    
+  <tbody>    
+    <tr *ngFor="let record of records | filter: searchText;let i = index;">    
+      <td> <span>{{record.orderId}}</span> </td>    
+      <td> <span>{{record.customerId}}</span> </td>    
+      <td> <span>{{record.deliveryPincode}}</span> </td>    
+      <td> <span>{{record.orderDate}}</span> </td>    
+      <td ><span ><p *ngFor="let item of record.items">{{item}}</p></span> </td>       
+    </tr>    
+  </tbody>    
+</table>  
+</div>
